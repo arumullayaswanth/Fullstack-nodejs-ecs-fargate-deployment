@@ -177,7 +177,6 @@ terraform plan
 terraform apply --auto-approve
 terraform show
 terraform state list
-terraform destroy -auto-approve
 ```
 
 ---
@@ -200,6 +199,13 @@ terraform state list
 ---
 
 ## 🖥️ Create EC2 to Connect Private RDS
+
+my challenge is my database created a new  database now I am going to create insider database some existing records.
+
+whenever i access a frontend and existing records you can see first then you can add your record in this case database inside you need to run some script to create existing data but the database if you want to connect extremal by using workbench and my database is private here.
+
+in this case same network i am going to create one ec2 instance to connect rds and insert data
+
 
 1. **Launch EC2 Instance**:
    - Go to EC2 → Launch Instance
@@ -283,7 +289,10 @@ terraform state list
 3. **Create A Record in Route 53**:
    - Type: A - IPv4 address
    - Alias: Yes
-   - Alias target: Your backend ALB
+   - Alias target: Choose Application and Classic Load Balancer
+   - Region: US East (N. Virginia)
+   - Alias target value: dualstack.backend-1016048026.us-east-1.elb.amazonaws.com  (replace you backend load balances)
+   - Click Create record
 
 ---
 
@@ -308,6 +317,8 @@ terraform state list
 ---
 
 ## 🌍 Access Your Application
+
+go to Google and search this website http://aluru.site and access the application now
 
 Visit: [http://aluru.site](http://aluru.site)
 
