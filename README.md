@@ -1,6 +1,24 @@
 
 # 🚀 Fullstack Node.js Deployment to AWS ECS Fargate (with Docker)
 
+Tech Stack: Node.js + Docker + AWS ECS + Fargate + ECR + IAM + VPC
+Deployment Strategy: Manual setup using AWS Console & CLI (Terraform optional extension)
+
+# 🔧 Prerequisites
+Ensure the following tools are installed and configured:
+
+✅ Node.js
+
+✅ Docker
+
+✅ AWS CLI
+
+✅ AWS Account with admin privileges
+
+✅ Your fullstack app ready in a local folder
+
+✅ IAM user with ECS, ECR, and VPC permissions
+
 ## 🏠 Architecture
 
 <table style="width: 100%; margin-bottom: 20px;">
