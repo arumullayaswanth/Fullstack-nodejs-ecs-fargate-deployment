@@ -234,14 +234,6 @@ mysql -h <your-rds-endpoint> -u admin -p < test.sql
 ## 🔄 Update ECS Task Definition with RDS Endpoint
 
 1. **Backend Task Update** (`backend-task-server.tf`):
-```hcl
-  environment = [
-    { name = "DB_HOST", value = "book-rds.c0n8k0a0swtz.us-east-1.rds.amazonaws.com" },
-    { name = "PORT", value = "3306" },
-    { name = "DB_USERNAME", value = "admin" },
-    { name = "DB_PASSWORD", value = "Yaswanth123reddy" }
-  ]
-```
 
 ---
 **Come back to VS code then change the ecs-task directory. And add rds endpoint near the db**
