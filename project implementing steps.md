@@ -168,14 +168,38 @@
 1. **Open VS Code Terminal** and run:
 ```bash
 ll
+```
+```bash
 cd terraform-ecs-fargate-fullstack-app/
+```
+```bash
 ls
 cd vpa-network
+```
+```bash
+ls
+```
+```bash
 terraform init
+```
+```bash
 terraform validate
+```
+```bash
 terraform plan
+```
+```bash
 terraform apply --auto-approve
 terraform show
+terraform state list
+```
+```bash
+terraform apply --auto-approve
+```
+```bash
+terraform show
+```
+```bash
 terraform state list
 ```
 
@@ -186,13 +210,34 @@ terraform state list
 1. **Navigate to RDS Directory**:
 ```bash
 cd ..
+```
+```bash
 ls
+```
+```bash
 cd rds
+```
+```bash
 terraform init
+```
+```bash
 terraform validate
+```
+```bash
 terraform plan
+```
+```bash
 terraform apply --auto-approve
 terraform show
+terraform state list
+```
+```bash
+terraform apply --auto-approve
+```
+```bash
+terraform show
+```
+```bash
 terraform state list
 ```
 
@@ -261,13 +306,34 @@ environment = [
 
 ```bash
 cd ..
+```
+```bash
 ls
+```
+```bash
 cd ecs-task
+```
+```bash
 terraform init
+```
+```bash
 terraform validate
+```
+```bash
 terraform plan
+```
+```bash
 terraform apply --auto-approve
 terraform show
+terraform state list
+```
+```bash
+terraform apply --auto-approve
+```
+```bash
+terraform show
+```
+```bash
 terraform state list
 ```
 
@@ -297,10 +363,21 @@ terraform state list
 ---
 
 ## 🔐 Request HTTPS Certificate with ACM
+**Path:** AWS Certificate Manager → Request Certificat
+1. Select: **Request a public certificate**
+2. Click **Next**
+3. Fully qualified domain name: **aluru.site**
+4. Validation method: **DNS validation (recommended)**
+5. Click **Request**
 
-1. **Request Public Certificate** for `aluru.site`.
-2. **Validate via Route 53**.
-3. **Wait for Certificate Approval**.
+*** Step 7: Validate Domain in Route 53***
+
+**Path:** AWS Certificate Manager → Certificates → Your Certificate ID
+
+1. Under domain, click **Create DNS record in Amazon Route 53**
+2. Select your hosted zone: **aluru.site**
+3. Click **Create record**
+4. Wait a few minutes for validation to complete
 
 ---
 
@@ -311,8 +388,10 @@ terraform state list
    - Protocol: HTTPS
    - Port: 443
    - Action: Forward to web target group
-   - Security policy: ELBSecurityPolicy-2021-06
-   - Select ACM Certificate
+   - Security policy: ELBSecurityPolicy-2021-06 (or latest)
+   - Select ACM Certificate : Select the one for **aluru.site**
+   - Click **Add**
+
 
 ---
 
