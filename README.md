@@ -19,6 +19,24 @@ Ensure the following tools are installed and configured:
 
 ✅ IAM user with ECS, ECR, and VPC permissions
 
+
+🚧 Tech Stack Overview
+- Application: Node.js (Fullstack, Backend focus)
+
+Containerization: Docker
+
+Infrastructure: Terraform
+
+Orchestration: AWS ECS (Fargate)
+
+Container Registry: Amazon ECR
+
+Network & Security: VPC, IAM roles/policies
+
+Logging: AWS CloudWatch
+
+
+
 ## 🏠 Architecture
 
 <table style="width: 100%; margin-bottom: 20px;">
