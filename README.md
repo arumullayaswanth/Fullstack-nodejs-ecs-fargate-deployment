@@ -1,5 +1,5 @@
 
-# 🚀 Fullstack Node.js ECS Fargate Deployment Guide
+# 🚀 Fullstack Node.js Deployment to AWS ECS Fargate (with Docker)
 
 ## 🏠 Architecture
 
