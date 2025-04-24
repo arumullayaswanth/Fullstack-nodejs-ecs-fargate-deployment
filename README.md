@@ -22,18 +22,12 @@ Ensure the following tools are installed and configured:
 
 🚧 Tech Stack Overview
 - Application: Node.js (Fullstack, Backend focus)
-
-Containerization: Docker
-
-Infrastructure: Terraform
-
-Orchestration: AWS ECS (Fargate)
-
-Container Registry: Amazon ECR
-
-Network & Security: VPC, IAM roles/policies
-
-Logging: AWS CloudWatch
+- Containerization: Docker
+- Infrastructure: Terraform
+- Orchestration: AWS ECS (Fargate)
+- Container Registry: Amazon ECR
+- Network & Security: VPC, IAM roles/policies
+- Logging: AWS CloudWatch
 
 
 
