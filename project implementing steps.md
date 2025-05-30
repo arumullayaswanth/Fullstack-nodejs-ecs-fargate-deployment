@@ -86,7 +86,7 @@
 
 1. Navigate to the frontend directory:
    ```bash
-   cd ../frontend/
+   cd ../client/
    ```
 
 2. Authenticate Docker with ECR:
