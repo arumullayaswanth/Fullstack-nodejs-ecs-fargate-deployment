@@ -138,6 +138,24 @@ sudo systemctl enable docker
 
 ## Step 3: Build Docker Images
 
+# 🔍 AWS Console Steps to View ECR Push Commands
+
+1. Go to the [AWS Management Console](https://console.aws.amazon.com/)
+2. In the search bar at the top, type: **Elastic Container Registry**
+3. Click on **Elastic Container Registry**
+4. Select **Private registry**
+5. Click on **Private repositories**
+6. Click **Create repository**
+7. Under **General settings**, enter the repository name:  
+   ```
+   frontend
+   ```
+8. Click **Create repository**
+9. After creation, open the **backend** repository
+10. Click **View push commands**
+
+You will now see the Docker commands required to authenticate, build, tag, and push your image.
+
 ### 🛠️ Backend Image
 
 1. Navigate to the backend directory:
@@ -168,6 +186,24 @@ sudo systemctl enable docker
 ---
 
 ### 🖼️ Frontend Image
+
+# 🔍 AWS Console Steps to View ECR Push Commands
+
+1. Go to the [AWS Management Console](https://console.aws.amazon.com/)
+2. In the search bar at the top, type: **Elastic Container Registry**
+3. Click on **Elastic Container Registry**
+4. Select **Private registry**
+5. Click on **Private repositories**
+6. Click **Create repository**
+7. Under **General settings**, enter the repository name:  
+   ```
+   frontend
+   ```
+8. Click **Create repository**
+9. After creation, open the **frontend** repository
+10. Click **View push commands**
+
+You will now see the Docker commands required to authenticate, build, tag, and push your image.
 
 1. Navigate to the frontend directory:
    ```bash
