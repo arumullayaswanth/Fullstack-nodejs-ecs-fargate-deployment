@@ -1,7 +1,7 @@
 
 
 provider "aws" {
-    region = "ap-south-1"
+    region = "us-east-1"
   
 }
 
@@ -38,7 +38,7 @@ resource "aws_db_instance" "rds" {
   multi_az               = true
   db_name                = "mydb"
   username               = "admin"
-  password               = "veeranarni"
+  password               = "Yaswanth123reddy"
   skip_final_snapshot    = true
   vpc_security_group_ids = [data.aws_security_group.sg.id]
   depends_on = [ aws_db_subnet_group.sub-grp ]
