@@ -5,7 +5,10 @@ Tech Stack: Node.js + Docker + AWS ECS + Fargate + ECR + IAM + VPC
 Deployment Strategy: Manual setup using AWS Console & CLI (Terraform optional extension)
 
     
-
+# Prerequisites:
+- You must have AWS CLI configured (aws configure).
+- Docker must be installed and running.
+- Your IAM user/role must have permission to use ECR (like AmazonEC2ContainerRegistryFullAccess or similar).
 
 #  🚧 Tech Stack Overview
 - Application: Node.js (Fullstack, Backend focus)
