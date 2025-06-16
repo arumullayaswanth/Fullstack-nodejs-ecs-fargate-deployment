@@ -270,3 +270,126 @@ Done! ✅
 4. ECS cluster: production-backend-cluster
 5. Service name: flask-backend-service
 6. Container name: backend-container
+
+
+
+# 🧪 Step-by-Step: Test Your Auto-Update Setup
+
+### 🎯 Goal:
+
+When you push a new image to ECR, your ECS service should **automatically update** with that image. No manual work!
+
+---
+
+## 🧱 PRE-REQUIREMENTS CHECKLIST
+
+✅ You already have:
+
+* An ECR repo (e.g., `flask-app-backend`)
+* An ECS Cluster + ECS Service running
+* A working Lambda function that updates ECS
+* EventBridge rule that triggers Lambda when new image is pushed
+
+If YES, you’re good to go! 🎉
+
+---
+
+## 🚀 Step 1: Open Terminal and Set Your Variables
+
+Paste this in your terminal:
+
+```bash
+AWS_ACCOUNT_ID=987654321000
+AWS_REGION=us-east-1
+REPO_NAME=flask-app-backend
+NEW_VERSION=v1.0.4
+```
+
+---
+
+## 🏗️ Step 2: Build a New Docker Image
+
+```bash
+docker build -t $REPO_NAME .
+```
+
+---
+
+## 🏷️ Step 3: Tag the Image With a New Version
+
+```bash
+docker tag $REPO_NAME:latest \
+$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPO_NAME:$NEW_VERSION
+```
+
+---
+
+## ☁️ Step 4: Push to ECR (this triggers the update!)
+
+```bash
+aws ecr get-login-password --region $AWS_REGION | \
+docker login --username AWS --password-stdin \
+$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+
+docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPO_NAME:$NEW_VERSION
+```
+
+👆 This PUSH will trigger EventBridge ➡ Lambda ➡ ECS 🚀
+
+---
+
+## ⏳ Step 5: Go to AWS Console → ECS
+
+1. Open AWS Console
+2. Go to **ECS > Clusters > production-backend-cluster**
+3. Click on **Services > flask-backend-service**
+4. Click **Tasks tab**
+5. You’ll see:
+   🔁 **Old task stops**
+   🆕 **New task starts** using image `:v1.0.4`
+
+---
+
+## 🕵️ Step 6: Check Logs in Lambda
+
+1. Go to **Lambda Console**
+2. Click your function `AutoUpdateBackendOnPush`
+3. Click **Monitor → View Logs in CloudWatch**
+4. You’ll see logs like:
+
+   ```
+   Updating image to: flask-app-backend:v1.0.4
+   ECS service updated successfully.
+   ```
+
+---
+
+## ✅ Step 7: (Optional) Verify App Version
+
+If your app has a version displayed (e.g., on `/version` route), visit the public IP of the ECS Task or Load Balancer and confirm it shows `v1.0.4`.
+
+---
+
+## 🎉 ALL DONE!
+
+You just tested **ECR → Lambda → ECS Auto Deployment** by:
+
+🛠️ Building a new version
+📦 Pushing to ECR
+⚡ Automatically updating ECS service
+🖥️ Running new version live!
+
+---
+
+Let me know if you want:
+
+* Sample app to test with
+* HTML UI to show version
+* Monitoring setup (like Slack alert)
+
+I'm here like your tech buddy! 👶💻
+
+
+
+
+
