@@ -409,6 +409,12 @@ mysql -h <your-rds-endpoint> -u admin -p < test.sql
 (eg: mysql -h book-rds.c0n8k0a0swtz.us-east-1.rds.amazonaws.com -u admin -Yaswanth123reddy < test.sql)
 ```
 
+- SHOW DATABASES;
+- USE test;
+- SHOW TABLES;
+- EXIT;
+
+
 ---
 
 ## 🔄 Update ECS Task Definition with RDS Endpoint
