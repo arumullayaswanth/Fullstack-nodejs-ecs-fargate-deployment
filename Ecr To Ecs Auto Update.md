@@ -99,68 +99,70 @@ import boto3
 import os
 import logging
 
+# 📝 Set up logging so we can see what's happening
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+# 🛠️ Connect to ECS
 ecs_client = boto3.client('ecs')
 
 def lambda_handler(event, context):
     try:
+        # 📦 Get info from environment
         cluster_name = os.environ['ECS_CLUSTER']
         service_name = os.environ['ECS_SERVICE']
         container_name = os.environ['CONTAINER_NAME']
+        account_id = os.environ['AWS_ACCOUNT_ID']
+        region = os.environ['AWS_REGION']
 
-        # Get image details from ECR push event
+        # 🎯 Get the new image from the event
         repository_name = event.get('detail', {}).get('repository-name')
         image_tag = event.get('detail', {}).get('image-tag')
         if not repository_name or not image_tag:
             raise ValueError("Missing 'repository-name' or 'image-tag' in event['detail']")
 
-        # Construct full image URI
-        account_id = os.environ['AWS_ACCOUNT_ID']
-        region = os.environ['AWS_REGION']
         image_uri = f"{account_id}.dkr.ecr.{region}.amazonaws.com/{repository_name}:{image_tag}"
-        logger.info(f"New image URI: {image_uri}")
+        logger.info(f"👀 New image URI: {image_uri}")
 
-        # Get current task definition
-        service_desc = ecs_client.describe_services(cluster=cluster_name, services=[service_name])
-        task_def_arn = service_desc['services'][0]['taskDefinition']
-        task_def_desc = ecs_client.describe_task_definition(taskDefinition=task_def_arn)
-        container_defs = task_def_desc['taskDefinition']['containerDefinitions']
+        # 📦 Describe current ECS task
+        response = ecs_client.describe_services(cluster=cluster_name, services=[service_name])
+        task_def_arn = response['services'][0]['taskDefinition']
+        task_def = ecs_client.describe_task_definition(taskDefinition=task_def_arn)
+        container_definitions = task_def['taskDefinition']['containerDefinitions']
 
-        # Update image in container definition
+        # 🧬 Update image inside task definition
         updated = False
-        for container in container_defs:
+        for container in container_definitions:
             if container['name'] == container_name:
                 container['image'] = image_uri
                 updated = True
 
         if not updated:
-            raise ValueError(f"Container name '{container_name}' not found in task definition.")
+            raise ValueError(f"❌ Container '{container_name}' not found.")
 
-        # Register new task definition
-        new_task = ecs_client.register_task_definition(
-            family=task_def_desc['taskDefinition']['family'],
-            executionRoleArn=task_def_desc['taskDefinition']['executionRoleArn'],
-            networkMode=task_def_desc['taskDefinition']['networkMode'],
-            containerDefinitions=container_defs,
-            requiresCompatibilities=task_def_desc['taskDefinition']['requiresCompatibilities'],
-            cpu=task_def_desc['taskDefinition']['cpu'],
-            memory=task_def_desc['taskDefinition']['memory']
+        # 🆕 Register a new task definition with the new image
+        new_task_def = ecs_client.register_task_definition(
+            family=task_def['taskDefinition']['family'],
+            executionRoleArn=task_def['taskDefinition']['executionRoleArn'],
+            networkMode=task_def['taskDefinition']['networkMode'],
+            containerDefinitions=container_definitions,
+            requiresCompatibilities=task_def['taskDefinition']['requiresCompatibilities'],
+            cpu=task_def['taskDefinition']['cpu'],
+            memory=task_def['taskDefinition']['memory']
         )
 
-        # Update service with new task definition
+        # 🔄 Update ECS service with new task
         ecs_client.update_service(
             cluster=cluster_name,
             service=service_name,
-            taskDefinition=new_task['taskDefinition']['taskDefinitionArn']
+            taskDefinition=new_task_def['taskDefinition']['taskDefinitionArn']
         )
 
-        logger.info("ECS service updated successfully.")
-        return {"message": "ECS service updated with new image"}
+        logger.info("✅ ECS updated!")
+        return {"message": "ECS updated with new image"}
 
     except Exception as e:
-        logger.error(f"Error updating ECS service: {str(e)}")
+        logger.error(f"❌ Error: {str(e)}")
         return {"error": str(e)}
 
 ```
