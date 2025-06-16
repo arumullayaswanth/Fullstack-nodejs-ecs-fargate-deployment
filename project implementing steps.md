@@ -391,7 +391,10 @@ sudo yum install docker -y
 sudo usermod -aG docker ec2-user
 
 newgrp docker
-systemctl status docker.service
+sudo systemctl start docker
+sudo systemctl status docker
+sudo systemctl enable docker
+
 sudo chmod 777 /var/run/docker.sock
 yum install mariadb105-server -y
 
