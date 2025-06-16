@@ -397,6 +397,10 @@ sudo systemctl enable docker
 
 sudo chmod 777 /var/run/docker.sock
 yum install mariadb105-server -y
+sudo systemctl start mariadb
+sudo systemctl enable mariadb
+
+
 
 git clone https://github.com/arumullayaswanth/Fullstack-nodejs-ecs-fargate-deployment.git
 cd backend/
