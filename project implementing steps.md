@@ -148,7 +148,7 @@ sudo systemctl enable docker
 6. Click **Create repository**
 7. Under **General settings**, enter the repository name:  
    ```
-   frontend
+   backend
    ```
 8. Click **Create repository**
 9. After creation, open the **backend** repository
