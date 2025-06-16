@@ -4,6 +4,86 @@
 # Prerequisites:
 - You must have AWS CLI configured (aws configure).
 - Docker must be installed and running.
+- # ✅ Docker on Amazon Linux 2023 (AL2023)
+
+## 1. Install Docker
+
+Amazon Linux 2023 uses `dnf` instead of `yum`. Run the following commands:
+
+```bash
+sudo dnf update -y
+sudo dnf install -y docker
+```
+
+## 2. Start and Enable Docker Service
+
+Start the Docker service:
+
+```bash
+sudo systemctl start docker
+```
+
+Enable it to start on boot:
+
+```bash
+sudo systemctl enable docker
+```
+
+## 3. Add EC2 User to Docker Group
+
+Allow the `ec2-user` to run Docker commands without `sudo`:
+
+```bash
+sudo usermod -aG docker ec2-user
+```
+
+Then either:
+
+- Reboot:  
+  ```bash
+  sudo reboot
+  ```
+
+- Or log out and log back in for the group change to take effect.
+
+## 4. Verify Docker is Working
+
+Check Docker info:
+
+```bash
+docker info
+```
+
+You should see both **Client** and **Server** info without errors.
+
+---
+
+## 🔧 If Docker Daemon is Not Running
+
+Start it manually:
+
+```bash
+sudo systemctl start docker
+```
+
+Check its status:
+
+```bash
+sudo systemctl status docker
+```
+
+If it says `active (running)`, everything is working correctly.
+
+---
+
+## ✅ Optional: Enable Docker on Boot
+
+To ensure Docker starts automatically after a reboot:
+
+```bash
+sudo systemctl enable docker
+```
+
 - Your IAM user/role must have permission to use ECR (like AmazonEC2ContainerRegistryFullAccess or similar).
 
 ## Step 1: Grant Permissions to Terraform
