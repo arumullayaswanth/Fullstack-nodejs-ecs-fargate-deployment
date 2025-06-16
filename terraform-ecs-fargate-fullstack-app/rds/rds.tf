@@ -42,7 +42,7 @@ resource "aws_db_instance" "rds" {
   skip_final_snapshot    = true
   vpc_security_group_ids = [data.aws_security_group.sg.id]
   depends_on = [ aws_db_subnet_group.sub-grp ]
-  publicly_accessible = true
+  publicly_accessible = true          # Make RDS publicly accessible
   backup_retention_period = 7
   apply_immediately         = true  # ✅ this is the key
 
