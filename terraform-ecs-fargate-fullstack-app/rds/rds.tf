@@ -44,6 +44,7 @@ resource "aws_db_instance" "rds" {
   depends_on = [ aws_db_subnet_group.sub-grp ]
   publicly_accessible = true
   backup_retention_period = 7
+  apply_immediately         = true  # ✅ this is the key
 
   
   tags = {
