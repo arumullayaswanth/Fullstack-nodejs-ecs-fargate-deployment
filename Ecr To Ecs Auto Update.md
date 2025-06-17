@@ -113,7 +113,9 @@ def lambda_handler(event, context):
         service_name = os.environ['ECS_SERVICE']
         container_name = os.environ['CONTAINER_NAME']
         account_id = os.environ['AWS_ACCOUNT_ID']
-        region = os.environ['AWS_REGION']
+        #region = os.environ['AWS_REGION']
+        region = os.environ.get('AWS_REGION', 'us-east-1')
+
 
         # 🎯 Get the new image from the event
         repository_name = event.get('detail', {}).get('repository-name')
@@ -164,6 +166,7 @@ def lambda_handler(event, context):
     except Exception as e:
         logger.error(f"❌ Error: {str(e)}")
         return {"error": str(e)}
+
 
 ```
 
