@@ -138,6 +138,19 @@ sudo systemctl enable docker
 
 ## Step 3: Build Docker Images
 
+### Update Frontend API Endpoint
+Go to `Fullstack-nodejs-ecs-fargate-deployment/client/src/pages
+/config.js` and update your API base URL:
+
+```js
+// const API_BASE_URL = "http://localhost:8800";
+const API_BASE_URL = "http://aluru.site";
+export default API_BASE_URL;
+// const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://backend";
+// export default API_BASE_URL;
+// const API_BASE_URL = "REACT_APP_API_BASE_URL_PLACEHOLDER";
+```
+---
 
 
 # 🔍 AWS Console Steps to View ECR Push Commands
